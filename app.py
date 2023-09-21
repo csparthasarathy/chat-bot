@@ -64,6 +64,7 @@ app = Flask(__name__)
 app.static_folder = 'static'
 @app.route("/")
 def home():
+    print("home acheived")
     return render_template("index.html")
 @app.route("/get")
 def get_bot_response():
