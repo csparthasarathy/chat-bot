@@ -1,6 +1,5 @@
 keras
 numpy
-pickle
 gunicorn
 json
 random
