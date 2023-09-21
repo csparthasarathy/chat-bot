@@ -1,5 +1,6 @@
-keras
+tensorflow
 numpy
 gunicorn
 nltk
 flask
+keras
