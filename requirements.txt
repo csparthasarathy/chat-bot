@@ -1,6 +1,5 @@
 keras
 numpy
 gunicorn
-random
 nltk
 flask
