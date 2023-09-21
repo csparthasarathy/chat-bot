@@ -46,6 +46,7 @@ def predict_class(sentence, model):
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
     return return_list
 def getResponse(ints, intents_json):
+    print("get response visited")
     tag = ints[0]['intent']
     list_of_intents = intents_json['intents']
     for i in list_of_intents:
@@ -54,6 +55,7 @@ def getResponse(ints, intents_json):
             break
     return result
 def chatbot_response(msg):
+    print("chatbot is analysing")
     ints = predict_class(msg, model)
     if ints:
        res = getResponse(ints, intents)
@@ -63,13 +65,21 @@ def chatbot_response(msg):
 from flask import Flask, render_template, request
 app = Flask(__name__)
 app.static_folder = 'static'
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home():
+    print("home visited")
     return render_template("index.html")
-@app.route("/get")
+
+@app.route("/get", methods=["GET", "POST"])
 def get_bot_response():
-    userText = request.args.get('msg')
+    print("message received by bot")
+    if request.method == "POST":
+        userText = request.form["msg"]
+    else:  # GET request
+        userText = request.args.get("msg")
     return chatbot_response(userText)
-if __name__ == "__main__":
-    app.run()
+
+
+print("main entered")
+app.run()
 
