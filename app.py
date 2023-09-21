@@ -72,4 +72,5 @@ def get_bot_response():
     print("Message read")
     return chatbot_response(userText)
 if __name__ == "__main__":
+    print("entering main")
     app.run()
