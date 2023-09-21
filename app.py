@@ -6,6 +6,8 @@ import pickle
 import numpy as np
 from keras.models import load_model
 from flask import Flask, render_template, request, jsonify
+import json
+import random
 
 app = Flask(__name__)
 app.static_folder = 'static'
@@ -17,6 +19,7 @@ classes = pickle.load(open('labels.pkl','rb'))
 
 # Function to process the incoming message and generate a response
 def chatbot_response(msg):
+    print("chatbot is analysing")
     sentence_words = nltk.word_tokenize(msg)
     sentence_words = [lemmatizer.lemmatize(word.lower()) for word in sentence_words]
     bag = [0]*len(words)
@@ -42,10 +45,12 @@ def chatbot_response(msg):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    print("home visited")
     return render_template("index.html")
 
 @app.route("/get", methods=["GET", "POST"])
 def get_bot_response():
+    print("message received by bot")
     if request.method == "POST":
         userText = request.form["msg"]
     else:  # GET request
@@ -53,5 +58,6 @@ def get_bot_response():
     return chatbot_response(userText)
 
 if __name__ == "__main__":
+    print("main entered")
     app.run()
 
