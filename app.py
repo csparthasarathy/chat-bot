@@ -54,6 +54,7 @@ def getResponse(ints, intents_json):
             break
     return result
 def chatbot_response(msg):
+    print("chatbot recieved")
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
     return res
@@ -67,6 +68,7 @@ def home():
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
+    print("Message read")
     return chatbot_response(userText)
 if __name__ == "__main__":
     app.run()
